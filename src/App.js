@@ -25,9 +25,10 @@ class App extends Component {
 
   
   componentDidMount(){
-
     this.getTodo();
-
+  }
+  componentDidUpdate(){
+    this.getTodo();
   }
 
   addTodo =(e) => {
@@ -46,38 +47,22 @@ class App extends Component {
   }
 
 
-  // getTodos= () =>{
-  //   let  aaa =[];
-  //   console.log("aa");
-  //   db.collection("todoList").onSnapshot(function (queryShanpshort){
-    
-  //  aaa=queryShanpshort.docs.map(doc => ({
-  //       id: doc.id,
-  //       todo: doc.data().todo,
-  //       inprogress: doc.data().inprogress
-  //   }))
 
-
-
-  //   //console.log(aaa)
-  //   //this.setState({todos :aaa})
-  // })
-
-  // // aaa})
-  // console.log([...aaa]);
-  // console.log(this.state.todos);
-  // }
 
 
   getTodo= () =>{
     db.collection("todoList").get().then(snapshot => {
       const list =[];
       snapshot.forEach(doc => {
-        const data = doc.data();
+        const data = {
+          id: doc.id,
+          todo: doc.data().todo,
+          inprogress: doc.data().inprogress
+        }
+
         list.push(data);
       })
 
-    //console.log(snapshot.data);
     this.setState({todos : list})
 
     })
@@ -102,7 +87,10 @@ class App extends Component {
     this.setState({todoInput:event.target.value})
   }
 
-  
+  updateTodo=(id,inprogress)=>{
+    console.log(id);
+    db.collection("todoList").doc(id).update({inprogress: !inprogress})
+  }
 
 
   render(){
@@ -110,18 +98,21 @@ class App extends Component {
     let pageData = null;
 
     if(this.state.todos){
+      
       pageData = (
         <Aux>
           <h1>ToDo List</h1>
           <TodoInput
           add={this.addTodo}
-          delete={this.deleteTodo}
           state={this.state}
           todoInputUpdate={this.todoInputUpdate}
           />
           <TodoList
           todos={this.state.todos}
+          delete={this.deleteTodo}
+          update={this.updateTodo}
           /> 
+         
           <button onClick={this.getTodo}>hhh</button>
         </Aux>
       );
