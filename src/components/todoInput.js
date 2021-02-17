@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
-class todoList extends Component{
+class todoInput extends Component{
     render(){
         return(
             <div>
@@ -22,4 +22,4 @@ class todoList extends Component{
     }
 }
 
-export default todoList;
+export default todoInput;
