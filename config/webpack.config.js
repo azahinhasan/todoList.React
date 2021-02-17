@@ -476,7 +476,6 @@ module.exports = function (webpackEnv) {
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
                   modules: {
-                    modules: true,
                     localIdentName: '[name]__[local]__[hash:base64:5]',
                   },
               }),
@@ -497,7 +496,6 @@ module.exports = function (webpackEnv) {
                   : isEnvDevelopment,
                 modules: {
                   getLocalIdent: getCSSModuleLocalIdent,
-                  modules: true,
                   localIdentName: '[name]__[local]__[hash:base64:5]',
                 },
               }),

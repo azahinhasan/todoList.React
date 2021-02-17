@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import firebase from "firebase/app";
-import classes from './App.css';
+import './App.css';
 import { useState, useEffect} from "react";
 import TextField from '@material-ui/core/TextField';
 import TodoInput from './components/todoInput';
@@ -9,18 +9,20 @@ import TodoList from './components/showToDolist';
 import Button from '@material-ui/core/Button';
 import { db} from './firebase_config';
 import Aux from './hoc/auxx';
+import classes from './App.css';
 
-
+let a = false;
 class App extends Component {
 
   state={
-    todoInput:'',
+    todoInput:'Enter Your ToDo',
     // tode:{
     //   id:'',
     //   todo:'',
     //   inprogress:''
     // },
-    todos:null
+    todos:[ {id: "fafdafa",todo:"hello",inprogress: true},
+    {id: "fafdfa",todo:"fuck you.you are totally shit hofie hofaie hafoe l",inprogress: true}]
   }
 
   
@@ -29,6 +31,9 @@ class App extends Component {
   }
   componentDidUpdate(){
     this.getTodo();
+  }
+  shouldComponentUpdate(){
+    return true;
   }
 
   addTodo =(e) => {
@@ -51,22 +56,22 @@ class App extends Component {
 
 
   getTodo= () =>{
-    db.collection("todoList").get().then(snapshot => {
-      const list =[];
-      snapshot.forEach(doc => {
-        const data = {
-          id: doc.id,
-          todo: doc.data().todo,
-          inprogress: doc.data().inprogress
-        }
+    // db.collection("todoList").get().then(snapshot => {
+    //   const list =[];
+    //   snapshot.forEach(doc => {
+    //     const data = {
+    //       id: doc.id,
+    //       todo: doc.data().todo,
+    //       inprogress: doc.data().inprogress
+    //     }
 
-        list.push(data);
-      })
+    //     list.push(data);
+    //   })
 
-    this.setState({todos : list})
+    // this.setState({todos : list})
 
-    })
-    .catch( error => console.log(error))
+    // })
+    // .catch( error => console.log(error))
 
     // setTimeout(() => {
     //   console.log("d")
@@ -100,7 +105,7 @@ class App extends Component {
     if(this.state.todos){
       
       pageData = (
-        <Aux >
+        <Aux>
           <h1>ToDo List</h1>
           <TodoInput
           add={this.addTodo}
@@ -112,13 +117,15 @@ class App extends Component {
           delete={this.deleteTodo}
           update={this.updateTodo}
           /> 
+         
+          {/* <button onClick={this.getTodo}>hhh</button> */}
         </Aux>
       );
     }
-
     return(
 
       <div className={classes.App}>
+        <p>dddd</p>
         {pageData}
       </div>
     

@@ -6,14 +6,18 @@ table{
     font-size: 15px;
     
     font-weight: bold;
-    border-spacing: 10px;
+    border-spacing: 15px;
     position: relative;
-    left: 50px;
+    left: 30px;
 }
 td{
-    width: 50%;
+    width: 220px;
     text-align: left;
+
+   
+}
+
+.data{
     border: 1px;
     border-bottom-style: solid;
-   
 }

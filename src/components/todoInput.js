@@ -4,19 +4,21 @@ import firebase from "firebase/app";
 import { useState, useEffect} from "react";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import classesBtn from '../button.css';
+import classes from './todoInput.css';
 
 class todoInput extends Component{
     render(){
         return(
             <div>
-                <TextField
-                id="standerd-basic" 
-                label="Input"
+                <input type="text"
+                className={classes.input}
+
                 value={this.props.state.todoInput}
                 onChange={this.props.todoInputUpdate}
                 />
-                <button onClick={this.props.add}>ADD</button>
+                <br/>
+                <button className={classesBtn.addBtn} onClick={this.props.add}>+</button>
             </div>
         )
     }
