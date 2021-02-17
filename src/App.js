@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import firebase from "firebase/app";
-import './App.css';
+import classes from './App.css';
 import { useState, useEffect} from "react";
 import TextField from '@material-ui/core/TextField';
 import TodoInput from './components/todoInput';
@@ -100,7 +100,7 @@ class App extends Component {
     if(this.state.todos){
       
       pageData = (
-        <Aux>
+        <Aux >
           <h1>ToDo List</h1>
           <TodoInput
           add={this.addTodo}
@@ -112,16 +112,15 @@ class App extends Component {
           delete={this.deleteTodo}
           update={this.updateTodo}
           /> 
-         
-          <button onClick={this.getTodo}>hhh</button>
         </Aux>
       );
     }
+
     return(
 
-      <Aux>
+      <div className={classes.App}>
         {pageData}
-      </Aux>
+      </div>
     
     )
   }

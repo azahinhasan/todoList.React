@@ -476,7 +476,8 @@ module.exports = function (webpackEnv) {
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
                   modules: {
-                    localIdentName: "[name]__[local]__[hash:base64:5]",
+                    modules: true,
+                    localIdentName: '[name]__[local]__[hash:base64:5]',
                   },
               }),
               // Don't consider CSS imports dead code even if the
@@ -496,7 +497,8 @@ module.exports = function (webpackEnv) {
                   : isEnvDevelopment,
                 modules: {
                   getLocalIdent: getCSSModuleLocalIdent,
-                  localIdentName: "[name]__[local]__[hash:base64:5]",
+                  modules: true,
+                  localIdentName: '[name]__[local]__[hash:base64:5]',
                 },
               }),
             },
