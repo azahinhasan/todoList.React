@@ -53,7 +53,7 @@ class App extends Component {
 
     });
 
-   this.setState({todoInput : '' , updatePage : true});
+   this.setState({todoInput : 'Enter Your ToDo' , updatePage : true});
 
 
   }
@@ -68,6 +68,7 @@ class App extends Component {
       snapshot.forEach(doc => {
         const data = {
           id: doc.id,
+          key:doc.id,
           todo: doc.data().todo,
           inprogress: doc.data().inprogress
         }
@@ -125,7 +126,7 @@ class App extends Component {
 
 
   render(){
-
+    
     let pageData = null;
 
     if(this.state.todos){
@@ -134,12 +135,14 @@ class App extends Component {
         <div>
           <h1>ToDo List</h1>
           <TodoInput
+          key={4}
           add={this.addTodo}
           state={this.state}
           hideValueOfInput={this.hideValueOfInput}
           todoInputUpdate={this.todoInputUpdate}
           />
           <TodoList
+          key={1}
           todos={this.state.todos}
           delete={this.deleteTodo}
           update={this.updateTodo}

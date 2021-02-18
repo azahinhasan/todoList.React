@@ -22,7 +22,6 @@ class todoList extends Component{
         if (this.props.todos.length == 0) 
         {
             noTask = <h2>No Task Left!</h2>
-            console.log(this.props.todos);
         }
         return(
 
@@ -30,25 +29,24 @@ class todoList extends Component{
 
             {noTask}
             <table>
-                <thead></thead>
+                <tbody>
+                    {this.props.todos.map(todo =>{
+                        return(
+                        <tr key={todo.id}>
+                            <td className={todo.inprogress? classes.dataNotDone : classes.dataDone}>
+                                {/*console.log("Pro " +String(todo.inprogress))*/}
+                                
+                                {todo.todo} 
+                            </td>
 
-                {this.props.todos.map(todo =>{
-
-                    return(
-                    <tr>
-                        <td className={todo.inprogress? classes.dataNotDone : classes.dataDone}>
-                            {/*console.log("Pro " +String(todo.inprogress))*/}
-                            {todo.todo} 
-                        </td>
-
-                        <td>
-                            <button className={classesBtn.button} onClick={this.props.update.bind(this,todo.id,todo.inprogress)}>✔</button>
-                            <div className={classesBtn.divider}></div>
-                            <button className={classesBtn.button} onClick={this.props.delete.bind(this,todo.id)}>✖</button>
-                        </td>
-                    </tr>
-                    )})}
-
+                            <td>
+                                <button className={classesBtn.button} onClick={this.props.update.bind(this,todo.id,todo.inprogress)}>✔</button>
+                                <div className={classesBtn.divider}></div>
+                                <button className={classesBtn.button} onClick={this.props.delete.bind(this,todo.id)}>✖</button>
+                            </td>
+                        </tr>
+                        )})}
+                </tbody>
             </table> 
             </div>
         )
