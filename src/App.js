@@ -92,7 +92,7 @@ class App extends Component {
     this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
     // if(this.state.updateCounter >= 1){
     //   this.setState({updateCounter: 0});
-    //   setTimeout(() => {  window.location.reload(false); }, 1500);
+     setTimeout(() => {  window.location.reload(false); }, 500);
     // }
     this.forceUpdate();
   } 
