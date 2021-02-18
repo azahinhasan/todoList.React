@@ -44,17 +44,15 @@ class App extends Component {
 
 
   addTodo =(e) => {
-    e.preventDefault();
+    console.log("added");
+    //e.preventDefault();
 
     db.collection("todoList").add({
       inprogress: true,
       timestmp: firebase.firestore.FieldValue.serverTimestamp(),
       todo:this.state.todoInput
-
     });
-
    this.setState({todoInput : 'Enter Your ToDo' , updatePage : true});
-
 
   }
 
@@ -68,33 +66,24 @@ class App extends Component {
       snapshot.forEach(doc => {
         const data = {
           id: doc.id,
-          key:doc.id,
           todo: doc.data().todo,
           inprogress: doc.data().inprogress
         }
-
         list.push(data);
       })
-
     this.setState({todos : list})
-
     })
     .catch( error => console.log(error))
-
     this.forceUpdate();
-   
-
   }
   
   deleteTodo =(id) => {
-    db.collection("todoList").doc(id).delete();
 
+    db.collection("todoList").doc(id).delete();
     this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
-    // if(this.state.updateCounter >= 1){
-    //   this.setState({updateCounter: 0});
-     setTimeout(() => {  window.location.reload(false); }, 500);
-    // }
+     setTimeout(() => {  window.location.reload(false); }, 100);
     this.forceUpdate();
+    
   } 
 
 
@@ -117,11 +106,8 @@ class App extends Component {
   updateTodo=(id,inprogress)=>{
     db.collection("todoList").doc(id).update({inprogress: !inprogress});
     this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
-    this.forceUpdate();
-    //setTimeout(() => {  window.location.reload(false); }, 800);
-
-
-   
+    //this.forceUpdate();
+    //setTimeout(() => {  window.location.reload(false); }, 800); 
   }
 
 
@@ -156,6 +142,7 @@ class App extends Component {
 
       <div className={classes.App}>
         {pageData}
+        <p>Remove and Done All</p>
       </div>
     
     )

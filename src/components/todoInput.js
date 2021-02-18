@@ -9,8 +9,11 @@ import classes from './todoInput.css';
 
 class todoInput extends Component{
 
-    valueOfInput(value){
-
+    enterKey = (event) =>{
+        if (event.key === "Enter") {
+            console.log("endter");
+            return this.props.add;
+          }
     }
 
     render(){
@@ -21,6 +24,8 @@ class todoInput extends Component{
                 
                 value={this.props.state.todoInput}
                 onClick={this.props.hideValueOfInput}
+                onKeyDown={(event)=> event.key == "Enter" ? this.props.add() : null}
+                //onKeyPress={this.props.add}
                 onChange={this.props.todoInputUpdate}
                 />
 
