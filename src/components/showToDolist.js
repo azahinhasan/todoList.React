@@ -9,9 +9,14 @@ import classesBtn from '../button.css';
 
 class todoList extends Component{
 
-    id(id){
-        console.log("id "+id);
-    }
+    
+    componentDidUpdate(prevProps,prevState){
+        if(this.props.todos !== prevProps.todos){
+          return true;
+        }
+        return false
+      }
+    
     render(){
         let noTask= '';
         if (this.props.todos.length == 0) 
@@ -31,7 +36,8 @@ class todoList extends Component{
 
                     return(
                     <tr>
-                        <td className={todo.inprogress ? classes.dataNotDone : classes.dataDone}>
+                        <td className={todo.inprogress? classes.dataNotDone : classes.dataDone}>
+                            {/*console.log("Pro " +String(todo.inprogress))*/}
                             {todo.todo} 
                         </td>
 

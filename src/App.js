@@ -21,6 +21,7 @@ class App extends Component {
     // tode:{
     //   id:'',
     todos:[],
+    darkMood:false,
     //   inprogress:''
     // },
     // todos:[ {id: "fafdafa",todo:"hello",inprogress: true},
@@ -29,25 +30,21 @@ class App extends Component {
 
   
   componentDidMount(){
-   console.log("[App.js] componentDidMount");
+   //console.log("[App.js] componentDidMount");
     this.getTodo();
   }
   componentDidUpdate(){
-    console.log("[App.js] 1st componentDidUpdate");
     if(this.state.updatePage){
-      console.log("[App.js] 1st componentDidUpdate");
       //console.log("[App.js] componentDidUpdate");
       this.getTodo();
       this.setState({updatePage : false});
     }
-
-
   }
 
 
+
   addTodo =(e) => {
-    //e.preventDefault();
-    console.log("add todo");
+    e.preventDefault();
 
     db.collection("todoList").add({
       inprogress: true,
@@ -66,7 +63,6 @@ class App extends Component {
 
 
   getTodo= () =>{
-    console.log("get Data");
     db.collection("todoList").orderBy("timestmp" ,"desc").get().then(snapshot => {
       const list =[];
       snapshot.forEach(doc => {
@@ -83,6 +79,8 @@ class App extends Component {
 
     })
     .catch( error => console.log(error))
+
+    this.forceUpdate();
    
 
   }
@@ -91,10 +89,11 @@ class App extends Component {
     db.collection("todoList").doc(id).delete();
 
     this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
-    if(this.state.updateCounter >= 1){
-      this.setState({updateCounter: 0});
-      setTimeout(() => {  window.location.reload(false); }, 1500);
-    }
+    // if(this.state.updateCounter >= 1){
+    //   this.setState({updateCounter: 0});
+    //   setTimeout(() => {  window.location.reload(false); }, 1500);
+    // }
+    this.forceUpdate();
   } 
 
 
@@ -109,11 +108,15 @@ class App extends Component {
     }
   }
 
-  updateTodo=(id,inprogress)=>{
+  forceUpdateHandler(){
+    console.log("focuse")
+    this.forceUpdate();
+  }
 
+  updateTodo=(id,inprogress)=>{
     db.collection("todoList").doc(id).update({inprogress: !inprogress});
     this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
-    
+    this.forceUpdate();
     //setTimeout(() => {  window.location.reload(false); }, 800);
 
 
@@ -128,7 +131,7 @@ class App extends Component {
     if(this.state.todos){
       
       pageData = (
-        <Aux>
+        <div>
           <h1>ToDo List</h1>
           <TodoInput
           add={this.addTodo}
@@ -143,7 +146,7 @@ class App extends Component {
           /> 
          
           {/* <button onClick={this.getTodo}>hhh</button> */}
-        </Aux>
+        </div>
       );
     }
     return(

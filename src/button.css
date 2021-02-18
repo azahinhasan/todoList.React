@@ -1,5 +1,5 @@
 .button {
-    background-color: blueviolet; 
+    background-color: black; 
     border: 5px;
     color: white;
     padding: 10px 22px;
@@ -12,14 +12,14 @@
     cursor: pointer;
     background-color: white; 
     color: black; 
-    border: 2px solid blueviolet;
+    border: 2px solid black;
     position: relative;
     margin-left: auto;
     margin-right: auto;
     width: 60px;
     height: 40px;
     left: 0%;
-    color: blueviolet;
+    color: black;
     font-weight: bold;
     border-radius: 5px;
     text-align: center;
@@ -29,7 +29,7 @@
 
   
   .button:hover {
-    background-color: blueviolet;
+    background-color: black;
     color: white;
   }
 
@@ -38,7 +38,7 @@
   }
   
   .addBtn{
-    background-color: blueviolet;
+    background-color: black;
     color: white;
 
     display: inline-block;
@@ -48,24 +48,24 @@
     cursor: pointer;
     background-color: white; 
     color: black; 
-    border: 2px solid blueviolet;
+    border: 2px solid black;
     width: 180px;
     height: 40px;
     left: 0%;
-    color: blueviolet;
+    color: black;
     font-weight: bold;
     border-radius: 5px;
   }
   
   .addBtn:hover {
-    background-color: blueviolet;
+    background-color: black;
     color: white;
   }
 
 
 
   .changeMoodBtn:hover {
-    background-color: blueviolet;
+    background-color: black;
     color: white;
   }
 
