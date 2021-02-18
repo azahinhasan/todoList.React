@@ -9,12 +9,6 @@ import classes from './todoInput.css';
 
 class todoInput extends Component{
 
-    enterKey = (event) =>{
-        if (event.key === "Enter") {
-            console.log("endter");
-            return this.props.add;
-          }
-    }
 
     render(){
         return(
