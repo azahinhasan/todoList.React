@@ -15,26 +15,35 @@ let a = false;
 class App extends Component {
 
   state={
+    updateCounter:0,
+    updatePage:false,
     todoInput:'Enter Your ToDo',
     // tode:{
     //   id:'',
-    //   todo:'',
+    todos:[],
     //   inprogress:''
     // },
-    todos:[ {id: "fafdafa",todo:"hello",inprogress: true},
-    {id: "fafdfa",todo:"fuck you.you are totally shit hofie hofaie hafoe l",inprogress: true}]
+    // todos:[ {id: "fafdafa",todo:"hello",inprogress: true},
+    // {id: "fafdfa",todo:"fuck you.you are totally shit hofie hofaie hafoe l",inprogress: true}]
   }
 
   
   componentDidMount(){
+   console.log("[App.js] componentDidMount");
     this.getTodo();
   }
   componentDidUpdate(){
-    this.getTodo();
+    console.log("[App.js] 1st componentDidUpdate");
+    if(this.state.updatePage){
+      console.log("[App.js] 1st componentDidUpdate");
+      //console.log("[App.js] componentDidUpdate");
+      this.getTodo();
+      this.setState({updatePage : false});
+    }
+
+
   }
-  shouldComponentUpdate(){
-    return true;
-  }
+
 
   addTodo =(e) => {
     //e.preventDefault();
@@ -47,7 +56,8 @@ class App extends Component {
 
     });
 
-   this.setState({todoInput : ''});
+   this.setState({todoInput : '' , updatePage : true});
+
 
   }
 
@@ -56,34 +66,35 @@ class App extends Component {
 
 
   getTodo= () =>{
-    // db.collection("todoList").get().then(snapshot => {
-    //   const list =[];
-    //   snapshot.forEach(doc => {
-    //     const data = {
-    //       id: doc.id,
-    //       todo: doc.data().todo,
-    //       inprogress: doc.data().inprogress
-    //     }
+    console.log("get Data");
+    db.collection("todoList").orderBy("timestmp" ,"desc").get().then(snapshot => {
+      const list =[];
+      snapshot.forEach(doc => {
+        const data = {
+          id: doc.id,
+          todo: doc.data().todo,
+          inprogress: doc.data().inprogress
+        }
 
-    //     list.push(data);
-    //   })
+        list.push(data);
+      })
 
-    // this.setState({todos : list})
+    this.setState({todos : list})
 
-    // })
-    // .catch( error => console.log(error))
-
-    // setTimeout(() => {
-    //   console.log("d")
-    // }, 5000);
-
+    })
+    .catch( error => console.log(error))
    
 
   }
   
   deleteTodo =(id) => {
     db.collection("todoList").doc(id).delete();
-    //console.log("Delete data : " + id);
+
+    this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
+    if(this.state.updateCounter >= 1){
+      this.setState({updateCounter: 0});
+      setTimeout(() => {  window.location.reload(false); }, 1500);
+    }
   } 
 
 
@@ -92,9 +103,21 @@ class App extends Component {
     this.setState({todoInput:event.target.value})
   }
 
+  hideValueOfInput=()=>{
+    if(this.state.todoInput== "Enter Your ToDo"){
+      this.setState({todoInput:""})
+    }
+  }
+
   updateTodo=(id,inprogress)=>{
-    console.log(id);
-    db.collection("todoList").doc(id).update({inprogress: !inprogress})
+
+    db.collection("todoList").doc(id).update({inprogress: !inprogress});
+    this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
+    
+    //setTimeout(() => {  window.location.reload(false); }, 800);
+
+
+   
   }
 
 
@@ -110,6 +133,7 @@ class App extends Component {
           <TodoInput
           add={this.addTodo}
           state={this.state}
+          hideValueOfInput={this.hideValueOfInput}
           todoInputUpdate={this.todoInputUpdate}
           />
           <TodoList
@@ -125,7 +149,6 @@ class App extends Component {
     return(
 
       <div className={classes.App}>
-        <p>dddd</p>
         {pageData}
       </div>
     

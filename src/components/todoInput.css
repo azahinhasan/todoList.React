@@ -1,8 +1,18 @@
 
 .input{
+    margin: 20px ;
     border: 2px blueviolet;
     border-bottom-style: solid;
     width: 300px;
     height: 50px;
     text-align: center;
+    color: blueviolet;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.line{
+   margin: 50px 1px;
+    border: 2px blueviolet;
+    border-bottom-style: solid;
 }

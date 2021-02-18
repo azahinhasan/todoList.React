@@ -17,7 +17,13 @@ td{
    
 }
 
-.data{
+.dataNotDone{
     border: 1px;
     border-bottom-style: solid;
+}
+
+.dataDone{
+    border: 1px;
+    border-bottom-style: solid;
+    text-decoration: line-through;
 }
