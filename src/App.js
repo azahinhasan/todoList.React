@@ -44,15 +44,18 @@ class App extends Component {
 
 
   addTodo =(e) => {
-    console.log("added");
+    //console.log("added");
     //e.preventDefault();
 
-    db.collection("todoList").add({
-      inprogress: true,
-      timestmp: firebase.firestore.FieldValue.serverTimestamp(),
-      todo:this.state.todoInput
-    });
-   this.setState({todoInput : 'Enter Your ToDo' , updatePage : true});
+    if(this.state.todoInput!='Enter Your ToDo'){
+      db.collection("todoList").add({
+        inprogress: true,
+        timestmp: firebase.firestore.FieldValue.serverTimestamp(),
+        todo:this.state.todoInput
+      });
+     this.setState({todoInput : 'Enter Your ToDo' , updatePage : true});
+    }
+
 
   }
 
@@ -71,18 +74,19 @@ class App extends Component {
         }
         list.push(data);
       })
-    this.setState({todos : list})
+    this.setState({todos : list},()=>this.getTodo())
     })
     .catch( error => console.log(error))
-    this.forceUpdate();
+    //this.forceUpdate();
   }
   
+
   deleteTodo =(id) => {
 
     db.collection("todoList").doc(id).delete();
-    this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
-     setTimeout(() => {  window.location.reload(false); }, 100);
-    this.forceUpdate();
+    this.setState({updatePage : true ,updateCounter:this.state.updateCounter+1});
+     //setTimeout(() => {  window.location.reload(false); }, 100);
+   // this.forceUpdate();
     
   } 
 
@@ -98,10 +102,7 @@ class App extends Component {
     }
   }
 
-  forceUpdateHandler(){
-    console.log("focuse")
-    this.forceUpdate();
-  }
+
 
   updateTodo=(id,inprogress)=>{
     db.collection("todoList").doc(id).update({inprogress: !inprogress});
