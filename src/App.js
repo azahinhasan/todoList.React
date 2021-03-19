@@ -72,21 +72,29 @@ class App extends Component {
           todo: doc.data().todo,
           inprogress: doc.data().inprogress
         }
-        list.push(data);
+        let a = {...data};
+        list.push(a);
       })
-    this.setState({todos : list},()=>this.getTodo())
+    this.setState({todos : list})
+
+    // this.setState(prevState => ({ // You can also get the current state passing a callback to this.setState
+    //   todos: prevState.todos.filter(book => book.id !== snapshot.key)
+    // }));
+
     })
     .catch( error => console.log(error))
-    //this.forceUpdate();
+    this.forceUpdate();
   }
   
 
   deleteTodo =(id) => {
 
     db.collection("todoList").doc(id).delete();
-    this.setState({updatePage : true ,updateCounter:this.state.updateCounter+1});
-     //setTimeout(() => {  window.location.reload(false); }, 100);
-   // this.forceUpdate();
+    this.setState({updatePage : true ,updateCounter:this.state.updateCounter+1},()=>{console.log(this.state)});
+    this.getTodo();
+    //this.forceUpdate();
+    setTimeout(() => { window.location.reload(false); }, 400);
+    
     
   } 
 
@@ -107,7 +115,7 @@ class App extends Component {
   updateTodo=(id,inprogress)=>{
     db.collection("todoList").doc(id).update({inprogress: !inprogress});
     this.setState({updatePage : true ,updateCounter: this.state.updateCounter+1});
-    //this.forceUpdate();
+    this.forceUpdate();
     //setTimeout(() => {  window.location.reload(false); }, 800); 
   }
 
