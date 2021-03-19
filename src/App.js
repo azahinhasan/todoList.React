@@ -18,6 +18,7 @@ class App extends Component {
     updateCounter:0,
     updatePage:false,
     todoInput:'Enter Your ToDo',
+    getTodoCallAgain:false,
     // tode:{
     //   id:'',
     todos:[],
@@ -77,9 +78,10 @@ class App extends Component {
       })
     this.setState({todos : list})
 
-    // this.setState(prevState => ({ // You can also get the current state passing a callback to this.setState
-    //   todos: prevState.todos.filter(book => book.id !== snapshot.key)
-    // }));
+    if(this.state.getTodoCallAgain){
+      this.setState({getTodoCallAgain : false})
+      this.getTodo();    
+    }
 
     })
     .catch( error => console.log(error))
@@ -90,10 +92,9 @@ class App extends Component {
   deleteTodo =(id) => {
 
     db.collection("todoList").doc(id).delete();
-    this.setState({updatePage : true ,updateCounter:this.state.updateCounter+1},()=>{console.log(this.state)});
-    this.getTodo();
+    this.setState({updatePage : true ,updateCounter:this.state.updateCounter+1,getTodoCallAgain:true});
     //this.forceUpdate();
-    setTimeout(() => { window.location.reload(false); }, 400);
+   // setTimeout(() => { window.location.reload(false); }, 400);
     
     
   } 
